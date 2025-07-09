@@ -49,7 +49,7 @@ const Login = () => {
             Password
           </label>
           <input 
-          type={showPassword ? "password" : "text"}
+          type={showPassword ? "text" : "password"}
           name="loginPassword" 
           placeholder="**********"
           onChange={handleChange}
@@ -70,7 +70,7 @@ const Login = () => {
             Login
           </button>
 
-          <p className='text-sm text-center text-gray-500 mt-5 font-bold'>Don't have an account please <Link to={"/sing"} className='text-green-600 hover:underline'>SingUp</Link></p>
+          <p className='text-sm text-center text-gray-500 mt-5 font-bold'>Don't have an account please <Link to={"/sing"} className='text-green-600 hover:underline'>SignUp</Link></p>
     
         </form>
     </div>

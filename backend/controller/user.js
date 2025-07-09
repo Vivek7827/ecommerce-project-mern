@@ -1,4 +1,4 @@
-const userCollecction = require("../models/user.model.js");
+const userCollecction = require("../models/user");
 const bcrypt = require("bcrypt");
 
 {/*Controller to handle user registration data*/}
@@ -10,7 +10,7 @@ const regDataController = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const hashedPassword = await bcrypt.hash(userPassword, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new userCollecction({
       userName: fullName,
       userEmail: email,

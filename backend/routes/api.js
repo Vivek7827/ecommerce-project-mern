@@ -1,11 +1,9 @@
-const express = require("express");
-const api = express.Router();
-const { regDataController } = require("../controller/user.controller.js");
+const api = require("express").Router();
+const userController = require("../controller/user");
 
 api.get("/", (req, res) => {
   res.send("Hello Backend");
 });
-
-api.post("/regdata", regDataController);
+api.post("/regdata", userController.regDataController);
 
 module.exports = api;

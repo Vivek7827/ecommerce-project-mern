@@ -37,7 +37,6 @@ async function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  <h2 className='text-2xl font-bold mb-4 text-green-600 text-center '>Signup</h2>
   return ( 
   <div className='fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50'>
     <div className='bg-white w-full max-w-md p-6 rounded-xl shadow-lg relative mx-4'> 
@@ -72,7 +71,6 @@ async function handleForm(e) {
           id="" 
           className='w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500'/>  
 
-        <div className='relative'>
           <label htmlFor="" className='block text-sm text-gray-600 mb-2 font-bold'>
            Password
           </label>
@@ -88,12 +86,12 @@ async function handleForm(e) {
         <button type="submit" className='w-full bg-green-500 hover:bg-green-800 text-white rounded font-semibold py-2 mt-6'>
             Signup
         </button>
-
+         </form>
         <p className='text-sm text-center text-gray-500 mt-5 font-bold'>Already have an account? Please <Link to={"/login"} className='text-green-600 hover:underline'>Login</Link></p>
-        </div>
-        </form>
+       
     </div>
-  </div> );
+  </div> 
+  );
 }
 
 export default Signup;

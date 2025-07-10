@@ -49,7 +49,7 @@ const Login = () => {
             Password
           </label>
           <input 
-          type={showPassword ? "text" : "password"}
+          type={showPassword ? "password" : "text"}
           name="loginPassword" 
           placeholder="**********"
           onChange={handleChange}
@@ -64,15 +64,13 @@ const Login = () => {
            </button>
           </div>
 
-    
-
+  
           <button type="submit" className='w-full bg-green-500 hover:bg-green-800 text-white rounded font-semibold first-of-type:last-of-type:py-2 mt-6'>
             Login
           </button>
+        </form>
 
           <p className='text-sm text-center text-gray-500 mt-5 font-bold'>Don't have an account please <Link to={"/sing"} className='text-green-600 hover:underline'>SignUp</Link></p>
-    
-        </form>
     </div>
   </div> );
 }

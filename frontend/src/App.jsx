@@ -13,11 +13,6 @@ import EditProducts from "./admin/EditProducts";
 import Contact from "./pages/Contact";
 import AdminManageContact from "./admin/AdminManageContact";
 
-
-
-
-
-
 const App = () => {
   return (
     <BrowserRouter>

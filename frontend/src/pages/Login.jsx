@@ -3,6 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Login = () => {
 
@@ -14,8 +15,35 @@ const Login = () => {
 
   const [login, setLogin] = useState({ loginEmail: "", loginPassword: ""});
 
-  function handleForm(e) {
+  async function handleForm(e) {
     e.preventDefault();
+    try {
+      const response = await fetch("/api/loginuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      })
+
+      const result = await response.json();
+      if (response.ok) {
+
+        if (result.data && result.data.userEmail) {
+          navigate("/admin/dashboard");
+          toast.success("Admin Login Successfully 😊");
+        } else {
+          toast.success(result.message);
+          navigate("/");
+        } 
+      } else {
+        toast.error(result.message || "Something went Wrong!");
+      }
+      
+    } catch (error) {
+      toast.error("User not found ❌");
+    }
+    
   }
 
   function handleChange(e) {

@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-
-
-
+import toast from "react-hot-toast";
 
 const Signup = () => {
 
@@ -15,22 +13,28 @@ const Signup = () => {
 
 async function handleForm(e) {
   e.preventDefault();
-  try {
-    const response = await fetch("/api/regdata", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(form),
-    });
+
+  try { 
+  const response = await fetch("/api/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  })
+
+  const result = await response.json();
     if (response.ok) {
-      navigate("/login");
+     toast.success(result.message);
+     navigate("/login");
     } else {
-      alert("Signup failed. Please try again.");
+    toast.error(result.message || "Something went Wrong!");
     }
+  
   } catch (error) {
-    alert("An error occurred. Please try again.");
+    toast.error("Network error, please try again Later❌")
   }
+    
 }
 
   function handleChange(e) {

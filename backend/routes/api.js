@@ -9,5 +9,10 @@ api.get("/", (req, res) => {
 api.post("/signup", userController.regDataController);
 api.post("/loginuser", userController.loginDataController);
 api.post("/addadminproduct", adminController.addProductController);
+api.get("/getallproducts", adminController.getAllProductsController);
+api.delete("/deleteproduct/:id", adminController.deleteProductController);
+api.get("/editvaluedata/:abc", adminController.editValueDataController);
+api.put("/productupdate/:abc", adminController.updateProductController)
+api.get("/userproducts", userController.userAllProducts)
 
 module.exports = api;

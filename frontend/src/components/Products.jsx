@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Products = () => {
+
+  const [product, setProduct] = useState([])
+
+  async function productData() {
+    try {
+      const response = await fetch("/api/userproducts")
+      const record = await response.json();
+      if (response.ok) {
+        setProduct(record.data)
+      } else {
+        console.log(record);
+      }
+    } catch (error) {
+      console.log(error);  
+    }
+  }
+
+  useEffect(() => {
+    productData();
+  }, [])
+
   return ( 
     <section className='py-10 px-6 max-w-7xl mx-auto'>
 
@@ -11,18 +32,18 @@ const Products = () => {
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6'>
 
       {
-        [1,2,3,4,5,6,7,8].map(() => (
+        product.map((items) => (
 
-        <div className='bg-white shadow rounded-lg p-4 hover:shadow-lg transition'>
+        <div key={items._id} className='bg-white shadow rounded-lg p-4 hover:shadow-lg transition'>
           <img 
           src="vkvj" 
           alt="ProductImage"
           className='w-full h-32 object-cover rounded' 
           />
           <h3 className='mt-2 font-med text-gray-600'>
-            Fresh Item
+            {items.productName}
           </h3>
-          <p className='text-green-500 font-bold'>₹99</p>
+          <p className='text-green-500 font-bold'>₹{items.productPrice}</p>
           <button className='mt-2 w-full bg-green-200 hover:bg-green-600'>
             Add To Cart
           </button>

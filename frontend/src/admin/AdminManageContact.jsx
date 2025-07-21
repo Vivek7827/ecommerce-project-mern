@@ -1,7 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slidebar from "./Slidebar";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 
 const AdminManageContact = () => {
+
+  const [query, setQuery] = useState([])
+  console.log(query);
+  
+  async function allQuery() {
+   
+   try {
+    const response = await fetch("/api/userallquery", {
+      method: "GET", 
+      headers: {"Content-Type": "application/json"}})
+    const record = await response.json();
+    if (response.ok) {
+      setQuery(record.data)
+    } else {
+      toast.error(record.message)
+    }
+   } catch (error) {
+      toast.error(error);
+   }
+
+  }
+
+  async function handleDelete(id) {
+    try {
+     const response = await fetch(`/api/deletequery/${id}`, {
+        method: "DELETE",
+      })
+      const record = await response.json();
+      if (response.ok) {
+        toast.success(record.message);
+        allQuery();
+      } else {
+        toast.error(record.message)
+      }
+    } catch (error) {
+      toast.error(error)
+    }
+  }
+
+  useEffect(() => {
+    allQuery();
+  }, [])
+
   return ( 
     <div className='flex mt-16'>
       <Slidebar />
@@ -21,23 +67,27 @@ const AdminManageContact = () => {
               </tr>
             </thead>
             <tbody >
-              <tr className='bg-white hover:bg-gray-50'>
-                <td className='px-4 py-2 border'>Vivek</td>
-                <td className='px-4 py-2 border'>example@gmail.com</td>
-                <td className='px-4 py-2 border'>I, Hope are you understand this topic</td>
+              {/*MAP*/}
+              {
+                query.map((items) => (
+                <tr key={items._id} className='bg-white hover:bg-gray-50'>
+                <td className='px-4 py-2 border'>{items.Name}</td>
+                <td className='px-4 py-2 border'>{items.Email}</td>
+                <td className='px-4 py-2 border'>{items. Message}</td>
                 <td className='px-4 py-2 border'>
-                  <button className='text-xs bg-green-500 text-gray-800 px-2 py-1 rounded'>Read</button>
+                  <button className='text-xs bg-green-500 text-gray-800 px-2 py-1 rounded'>{items.queryStatus}</button>
                 </td>
                 <td className='px-4 py-2 border'>
-                  <button className='text-xs bg-green-500 text-gray-800 px-2 py-1 rounded'>Reply</button>
+                  <Link to={`/admin/contact-reply/${items._id}`}>
+                    <button className='text-xs bg-green-500 text-gray-800 px-2 py-1 rounded'>Reply</button>
+                  </Link>
                 </td>
                 <td className='px-4 py-2 border'>
-                  <button className='text-xs bg-red-500 text-gray-800 px-2 py-1 rounded'>Remove</button>
+                    <button onClick={() => {handleDelete(items._id)}} className='text-xs bg-red-500 text-gray-800 px-2 py-1 rounded'>Delete</button>
                 </td>
-              
-
-              </tr>
-            
+              </tr>        
+                ))
+              }                 
             </tbody>
           </table>
         </div>

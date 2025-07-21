@@ -1,4 +1,6 @@
 const productCollection = require("../models/product.js");
+const queryCollection = require("../models/query.js");
+const nodemailer = require("nodemailer");
 
 const addProductController = async (req, res) => {
   try {
@@ -77,10 +79,75 @@ const updateProductController = async (req, res) => {
 
 }
 
+const userAllQueryController = async (req, res) => {
+  try {
+    const record = await queryCollection.find();
+    res.status(200).json({ data: record });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error..😓" });
+  }
+}
+
+const deleteQueryController = async (req, res) => {
+  try {
+    const id = req.params.abc;
+    await queryCollection.findByIdAndDelete(id);
+     res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error..😓" });
+  }
+  
+}
+
+const singleQueryController = async (req, res) => {
+  try {
+    const id = req.params.abc
+    const record = await queryCollection.findById(id)
+    res.status(200).json({ data: record });
+  } catch (error) {
+     res.status(500).json({ message: "Internal Server Error..😓" });
+  }
+}
+
+const mailReplyController = async (req, res) => {
+  try {
+  const {to, sub, body} = req.body;
+  const id = req.params.abc;
+
+  const transporter = nodemailer.createTransport({
+  host: "smtp.gamil.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "aparshakti09@gmail.com",
+    pass: "jn7jnAPss4f63QBp6D",
+  },
+});
+const info = transporter.sendMail({
+    from: '"ECOMMERC SHOP" <aparshakti09@gmail.com>',
+    to: to,
+    subject: sub,
+    text: body, // plain‑text body
+    html: body, // HTML body
+  });
+    await queryCollection.findByIdAndUpdate(id, {
+      queryStatus: "Read",
+    })
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error..😓" });
+  }
+  
+}
+
 module.exports = {
   addProductController,
   getAllProductsController,
   deleteProductController,
   editValueDataController,
   updateProductController,
+  userAllQueryController,
+  deleteQueryController,
+  singleQueryController,
+  mailReplyController
 }

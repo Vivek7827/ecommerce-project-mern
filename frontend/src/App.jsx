@@ -12,6 +12,7 @@ import AddProducts from "./admin/AddProducts";
 import EditProducts from "./admin/EditProducts";
 import Contact from "./pages/Contact";
 import AdminManageContact from "./admin/AdminManageContact";
+import ContactReply from "./admin/ContactReply";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
       <Route path="/admin/add-products" element={<AddProducts/>}/>
       <Route path="/admin/edit-products/:id" element={<EditProducts/>}/>
       <Route path="/admin/manage-contact" element={<AdminManageContact/>}/>
+      <Route path="/admin/contact-reply/:id" element={<ContactReply/>}/>
      </Routes>
      <Footer />
     </BrowserRouter>

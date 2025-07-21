@@ -1,5 +1,6 @@
 const userCollecction = require("../models/user.js");
-const productCollection = require("../models/product.js")
+const productCollection = require("../models/product.js");
+const queryCollection = require("../models/query.js");
 const bcrypt = require("bcrypt");
 
 {/*Controller to handle user registration data*/}
@@ -62,8 +63,26 @@ const userAllProducts = async (req, res) => {
   }
 }
 
+const userQueryController = async (req, res) => {
+ 
+ try {
+  const {userName, userEmail, userMessage} = req.body;
+  const record = new queryCollection({
+    Name: userName,
+    Email: userEmail,
+    Message: userMessage,
+  })
+  await record.save();
+   res.status(201).json({message: "Submit Your Query Successfully 😊"})
+ } catch (error) {
+   res.status(500).json({message: "Internal server error 🥺"});
+ }
+ 
+}
+
 module.exports = {
   regDataController,
   loginDataController,
   userAllProducts,
+  userQueryController,
 }

@@ -4,6 +4,8 @@ const nodemailer = require("nodemailer");
 
 const addProductController = async (req, res) => {
   try {
+
+    const productImage = req.file.filename;
     const { productName, price, category } = req.body;
 
     if (!productName || !price || !category) {
@@ -19,6 +21,7 @@ const addProductController = async (req, res) => {
       productName: productName,
       productPrice: price,
       productCategory: category,
+      productImage: productImage,
     })
 
     await newProduct.save();

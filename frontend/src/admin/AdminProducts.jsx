@@ -64,7 +64,7 @@ const [products, setProducts] = useState([]);
             <div key={index} className='bg-white rounded-xl shadow p-4 hover:shadow-xl transition'>
             {/*Product Image*/}
             <img 
-            src="asa" 
+            src={`/uploads/${items.productImage}`} 
             alt="Image" 
             className='w-full h-40 object-cover rounded-md mb-4 border'/>
             <h3 className='text-xl font-semibold text-gray-700'>{items.productName}</h3>

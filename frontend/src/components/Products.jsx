@@ -36,7 +36,7 @@ const Products = () => {
 
         <div key={items._id} className='bg-white shadow rounded-lg p-4 hover:shadow-lg transition'>
           <img 
-          src="vkvj" 
+          src={`/uploads/${items.productImage}`} 
           alt="ProductImage"
           className='w-full h-32 object-cover rounded' 
           />

@@ -20,5 +20,7 @@ api.get("/userallquery", adminController.userAllQueryController)
 api.delete("/deletequery/:abc", adminController.deleteQueryController)
 api.get("/querysingledata/:abc", adminController.singleQueryController)
 api.post("/mailreply/:abc", adminController.mailReplyController)
+api.post("/cart/save", userController.saveCartController)
+api.get("/cart/:userId", userController.getCartController)
 
 module.exports = api;

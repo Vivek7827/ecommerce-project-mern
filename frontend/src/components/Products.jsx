@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice/cartSlice";
 
 const Products = () => {
 
   const [product, setProduct] = useState([])
+
+  const dispatch = useDispatch()
 
   async function productData() {
     try {
@@ -44,7 +48,7 @@ const Products = () => {
             {items.productName}
           </h3>
           <p className='text-green-500 font-bold'>₹{items.productPrice}</p>
-          <button className='mt-2 w-full bg-green-200 hover:bg-green-600'>
+          <button className='mt-2 w-full bg-green-200 hover:bg-green-600' onClick={()=>{dispatch(addToCart(items))}}>
             Add To Cart
           </button>
         </div>

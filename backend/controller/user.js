@@ -55,7 +55,13 @@ const loginDataController = async (req, res) => {
 
 const userAllProducts = async (req, res) => {
   try {
-    const record = await productCollection.find({productStatus: "In-Stock"});
+    const category = req.query.category;
+    let filter = {productStatus: "In-Stock"}
+    if (category && category.toLowerCase() !== "all") {
+      filter.productCategory = category.toLowerCase()
+    }
+
+    const record = await productCollection.find(filter);
     res.status(200).json({
      data: record,
      })
@@ -117,6 +123,19 @@ const getCartController = async (req, res) => {
   }
 }
 
+const searchController = async (req, res) => {
+  try {
+   const keyword = req.query.q
+   const result = await productCollection.find({
+    productName: {$regex: keyword, $option: "i"},
+    productStatus: "In-Stock",
+   }) 
+   res.status(200).json({data: result})
+  } catch (error) {
+   res.status(500).json({message: "Internal server error 🥺"}); 
+  } 
+}
+
 module.exports = {
   regDataController,
   loginDataController,
@@ -124,4 +143,5 @@ module.exports = {
   userQueryController,
   saveCartController,
   getCartController,
+  searchController,
 }

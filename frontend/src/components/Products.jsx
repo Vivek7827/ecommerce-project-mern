@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice/cartSlice";
+import Category from "./Category";
+
 
 const Products = () => {
 
   const [product, setProduct] = useState([])
 
+  const [category, setCategory] = useState("All")
+  
   const dispatch = useDispatch()
 
-  async function productData() {
+  async function productData(selectCategory = "All") {
     try {
-      const response = await fetch("/api/userproducts")
+      const response = await fetch(`/api/userproducts?category=${selectCategory}`)
       const record = await response.json();
+      
       if (response.ok) {
         setProduct(record.data)
       } else {
@@ -23,11 +28,13 @@ const Products = () => {
   }
 
   useEffect(() => {
-    productData();
-  }, [])
+    productData(category);
+  }, [category])
 
   return ( 
     <section className='py-10 px-6 max-w-7xl mx-auto'>
+     
+     <Category onSelectCategory = {setCategory}/>
 
       <h2 className='text-2xl font-semibold text-gray-500 mb-6'>
         Treading Products 🔥
@@ -42,7 +49,7 @@ const Products = () => {
           <img 
           src={`/uploads/${items.productImage}`} 
           alt="ProductImage"
-          className='w-full h-32 object-cover rounded' 
+          className='w-full h-32 object-contain rounded' 
           />
           <h3 className='mt-2 font-med text-gray-600'>
             {items.productName}

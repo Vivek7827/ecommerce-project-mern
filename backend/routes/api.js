@@ -22,5 +22,6 @@ api.get("/querysingledata/:abc", adminController.singleQueryController)
 api.post("/mailreply/:abc", adminController.mailReplyController)
 api.post("/cart/save", userController.saveCartController)
 api.get("/cart/:userId", userController.getCartController)
+api.get("/search", userController.searchController)
 
 module.exports = api;

@@ -3,6 +3,7 @@ import Logo from "../assets/ecommerce_logo.png";
 import { Link } from "react-router-dom";
 import { FaHome, FaRegUserCircle, FaShoppingCart,FaSearch,FaTimes, FaBars } from "react-icons/fa";
 import { MdContactSupport } from "react-icons/md";
+import SearchData from "./SearchData";
 
 
 
@@ -12,6 +13,7 @@ const Navbar = () => {
   
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+  const [showSearch, setShowSearch] = useState(false)
   
 
   return ( 
@@ -29,6 +31,10 @@ const Navbar = () => {
               type="search" 
               name="" 
               id="" 
+              onFocus={()=>{
+                setShowSearch(true)
+              }}
+              readOnly
               className='w-full bg-gray-200 rounded-full ps-4 pe-10 py-2 shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-green-400'/>
               <FaSearch className='absolute right-3 top-3 text-sm text-gray-500'/>
             </div>
@@ -63,6 +69,7 @@ const Navbar = () => {
           }
         </div>
       </div>
+      {showSearch && <SearchData onclose={setShowSearch} />}
     </nav>
    );
 }

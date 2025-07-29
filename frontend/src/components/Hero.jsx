@@ -3,7 +3,7 @@ import HeroImage from "../assets/Hero_iamge1.png"
 
 const Hero = () => {
   return ( 
-    <section className='bg-gradient-to-r from-green-100 to-white px-8 py-10 md:flex items-center justify-between max-w-7xl mx-6 mt-12 m-8 rounded-lg ' >
+    <section className='bg-gradient-to-r from-green-100 to-white px-8 py-10 md:flex items-center justify-between max-w-7xl mx-6 mt-24 rounded-lg ' >
       <div className='md:w-1/2 space-y-4'>
         <h1 className='text-4xl md:text-5xl font-bold text-gray-600'>Fast Delivery 🚀</h1>
         
